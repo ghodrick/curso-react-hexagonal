@@ -37,14 +37,15 @@ export function CreateCourseForm() {
 		case FormStatus.Initial:
 			return (
 				<section id="order" className="">
-					<h2>🧑‍🏫 Create new course</h2>
+					<h2 className="text-left text-lg text-slate-900 font-bold mb-6">🧑‍🏫 Create new course</h2>
 
 					<form
 						onSubmit={(ev) => {
 							handleSubmit(ev);
 						}}
+						className="flex flex-col gap-4"
 					>
-						<div>
+						<div className="flex flex-col gap-2">
 							<label htmlFor="title">Course title</label>
 							<input
 								id="title"
@@ -54,12 +55,13 @@ export function CreateCourseForm() {
 								onChange={(ev) => {
 									updateForm({ title: ev.target.value });
 								}}
+								className="bg-gray-100 p-1 rounded-md w-full"
 							/>
 							{formData.title && errors.title && (
 								<div style={{ color: "tomato" }}>{errors.title}</div>
 							)}
 						</div>
-						<div>
+						<div className="flex flex-col gap-2">
 							<label htmlFor="imageUrl">Image URL</label>
 							<input
 								id="imageUrl"
@@ -69,13 +71,16 @@ export function CreateCourseForm() {
 								onChange={(ev) => {
 									updateForm({ imageUrl: ev.target.value });
 								}}
+								className="bg-gray-100 p-1 rounded-md w-full"
 							/>
 							{formData.imageUrl && errors.imageUrl && (
 								<div style={{ color: "tomato" }}>{errors.imageUrl}</div>
 							)}
 						</div>
-
-						<button type="submit">Create course</button>
+								
+						<button className="bg-blue-500 px-5 py-1 text-white font-bold rounded-md mt-5 hover:bg-blue-600 transition-all active:bg-blue-700" type="submit">
+							Create course
+						</button>
 					</form>
 				</section>
 			);
