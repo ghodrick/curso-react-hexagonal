@@ -3,6 +3,7 @@ import { CoursesList } from "./sections/courses/CourseList";
 import { CreateCourseForm } from "./sections/courses/CreateCourseForm";
 import { createLocalStorageCourseRepository } from "./modules/courses/infrastructure/LocalStorageCourseRepository";
 
+
 export function App() {
 
   const repository = createLocalStorageCourseRepository();
