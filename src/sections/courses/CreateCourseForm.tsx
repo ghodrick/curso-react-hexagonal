@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { isCourseImageUrlValid } from "../../modules/courses/domain/CourseImageUrl";
+import {
+	isCourseTitleValid,
+	TITLE_MAX_LENGTH,
+	TITLE_MIN_LENGTH,
+} from "../../modules/courses/domain/CourseTitle";
 import { Spinner } from "../shared/Spinner";
 import { FormStatus, useCourseForm } from "./useCourseForm";
 import { useCourseFormData } from "./useCourseFormData";
@@ -13,6 +18,18 @@ export function CreateCourseForm() {
 	const { formData, updateForm, resetForm } = useCourseFormData(initialState);
 	const { formStatus, submitForm, resetFormStatus } = useCourseForm();
 	const [errors, setErrors] = useState(initialState);
+
+	useEffect(() => {
+		const isTitleValid = isCourseTitleValid(formData.title);
+		const isImageUrlValid = isCourseImageUrlValid(formData.imageUrl);
+
+		setErrors({
+			title: isTitleValid
+				? ""
+				: `Title must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters`,
+			imageUrl: isImageUrlValid ? "" : "Image url is not valid",
+		});
+	}, [formData]);
 
 	const handleSubmit = (ev: React.FormEvent) => {
 		ev.preventDefault();
@@ -58,7 +75,7 @@ export function CreateCourseForm() {
 								className="bg-gray-100 p-1 rounded-md w-full"
 							/>
 							{formData.title && errors.title && (
-								<div style={{ color: "tomato" }}>{errors.title}</div>
+								<div className="text-xs text-red-500 tracking-wider">{errors.title}</div>
 							)}
 						</div>
 						<div className="flex flex-col gap-2">
@@ -74,7 +91,7 @@ export function CreateCourseForm() {
 								className="bg-gray-100 p-1 rounded-md w-full"
 							/>
 							{formData.imageUrl && errors.imageUrl && (
-								<div style={{ color: "tomato" }}>{errors.imageUrl}</div>
+								<div className="text-xs text-red-500 tracking-wider">{errors.imageUrl}</div>
 							)}
 						</div>
 								

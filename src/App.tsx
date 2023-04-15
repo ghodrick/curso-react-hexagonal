@@ -15,8 +15,10 @@ export function App() {
           <div className="w-full">
             <h1 className="text-slate-600 text-center font-bold text-2xl mb-8">Curso Hexagonal React</h1>
             <div className="bg-white rounded-lg px-8 py-8 shadow-md">
+              <div className="mb-20">
+                <CreateCourseForm />
+              </div>
               <CoursesList />
-              <CreateCourseForm />
             </div>
           </div>
         </div>

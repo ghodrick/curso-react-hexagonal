@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { createCourse } from "../../modules/courses/application/create/createCourse";
+import { getAllCourses } from "../../modules/courses/application/get-all/getAllCourses";
 import { Course } from "../../modules/courses/domain/Course";
 import { CourseRepository } from "../../modules/courses/domain/CourseRepository";
 
@@ -20,10 +21,13 @@ export const CoursesContextProvider = ({
 		const id = (uuidv4 as () => string)(); // TODO: check uuid types
 
 		createCourse(repository, { id, title, imageUrl });
+
+		getCourses();
 	}
 
 	function getCourses() {
-		setCourses([]);
+		const courses = getAllCourses(repository);
+		setCourses(courses);
 	}
 
 	useEffect(() => {
