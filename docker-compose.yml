@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  # web:
+  # #  container_name: rvtt-node
+  #   build: .
+  #   volumes:
+  #     # Montamos nuestra web desde fuera en el directorio web del contenedor
+  #     - .:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #   ports:
+  #    - "80:80"
+  #    - "5173:5173"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - mired
+  db:
+    container_name: rvtt-db
+    image: mariadb:10.10.3
+    ports:
+    - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "example"
+    networks:
+      - mired
+  #Docker Networks
+
+networks:
+  mired:
+    driver: bridge
