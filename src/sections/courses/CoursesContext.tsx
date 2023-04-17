@@ -25,8 +25,8 @@ export const CoursesContextProvider = ({
 		getCourses();
 	}
 
-	function getCourses() {
-		const courses = getAllCourses(repository);
+	async function getCourses() {
+		const courses = await getAllCourses(repository);
 		setCourses(courses);
 	}
 

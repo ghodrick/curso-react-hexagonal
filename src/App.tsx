@@ -11,9 +11,9 @@ export function App() {
 	return (
 		<CoursesContextProvider repository={repository}>
 			<div className="App bg-gray-50">
-        <div className="min-h-screen max-w-5xl flex flex-col justify-center items-center mx-auto">
+        <div className="min-h-screen max-w-5xl flex flex-col justify-center items-center mx-auto pt-20">
           <div className="w-full">
-            <h1 className="text-slate-600 text-center font-bold text-2xl mb-8">Curso Hexagonal React</h1>
+            <h1 className="text-slate-800 tracking-tight text-center font-bold text-4xl mb-8">Curso Hexagonal React</h1>
             <div className="bg-white rounded-lg px-8 py-8 shadow-md">
               <div className="mb-20">
                 <CreateCourseForm />

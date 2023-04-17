@@ -9,12 +9,35 @@ export function createLocalStorageCourseRepository(): CourseRepository {
     };
 }
 
-function save(course: Course) {
+async function save(course: Course) {
     const courses = getAllFromLocalStorage();
 
     courses.set(course.id, course);
 
     localStorage.setItem("courses", JSON.stringify(Array.from(courses.entries())));
+
+    await Promise.resolve();
+}
+
+
+
+async function get(courseId: string) {
+    const courses = getAllFromLocalStorage();
+
+    const course = courses.get(courseId);
+
+    if (!course)
+    {
+        return Promise.resolve(null);
+    }
+
+    return Promise.resolve(course);
+}
+
+function getAll() {
+	const courses = getAllFromLocalStorage();
+
+	return Promise.resolve(Array.from(courses.values()));
 }
 
 function getAllFromLocalStorage(): Map<string, Course> {
@@ -29,16 +52,4 @@ function getAllFromLocalStorage(): Map<string, Course> {
 	const map = new Map(JSON.parse(courses) as Iterable<[string, Course]>);
 
 	return map;
-}
-
-function get(courseId: string): Course | null {
-    const courses = getAllFromLocalStorage();
-
-    return courses.get(courseId) ?? null;
-}
-
-function getAll() {
-	const courses = getAllFromLocalStorage();
-
-	return Array.from(courses.values());
 }

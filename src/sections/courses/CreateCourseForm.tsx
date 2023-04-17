@@ -8,6 +8,7 @@ import {
 import { Spinner } from "../shared/Spinner";
 import { FormStatus, useCourseForm } from "./useCourseForm";
 import { useCourseFormData } from "./useCourseFormData";
+import { useValidationCourse } from "./useValidationCourse";
 
 const initialState = {
 	title: "",
@@ -17,19 +18,7 @@ const initialState = {
 export function CreateCourseForm() {
 	const { formData, updateForm, resetForm } = useCourseFormData(initialState);
 	const { formStatus, submitForm, resetFormStatus } = useCourseForm();
-	const [errors, setErrors] = useState(initialState);
-
-	useEffect(() => {
-		const isTitleValid = isCourseTitleValid(formData.title);
-		const isImageUrlValid = isCourseImageUrlValid(formData.imageUrl);
-
-		setErrors({
-			title: isTitleValid
-				? ""
-				: `Title must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters`,
-			imageUrl: isImageUrlValid ? "" : "Image url is not valid",
-		});
-	}, [formData]);
+	const {errors} = useValidationCourse(initialState, formData);
 
 	const handleSubmit = (ev: React.FormEvent) => {
 		ev.preventDefault();
@@ -95,7 +84,7 @@ export function CreateCourseForm() {
 							)}
 						</div>
 								
-						<button className="bg-blue-500 px-5 py-1 text-white font-bold rounded-md mt-5 hover:bg-blue-600 transition-all active:bg-blue-700" type="submit">
+						<button className="bg-blue-500 px-5 py-1 text-white font-regular rounded-md mt-5 hover:bg-blue-600 transition-all active:bg-blue-700" type="submit">
 							Create course
 						</button>
 					</form>
@@ -110,7 +99,7 @@ function SuccessNotification({ resetForm }: { resetForm: () => void }) {
 	return (
 		<section>
 			<h2>🚀 Course created</h2>
-			<button onClick={resetForm}>Create a new course</button>
+			<button className="bg-blue-500 px-5 py-1 text-white font-regular rounded-md mt-5 hover:bg-blue-600 transition-all active:bg-blue-700" onClick={resetForm}>Create a new course</button>
 		</section>
 	);
 }
